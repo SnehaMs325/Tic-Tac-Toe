@@ -40,38 +40,41 @@ const TicTacToe = () => {
         const checkWin = () => {
 
             if (data[0] === data[1] && data[1] === data[2] && data[2] !== "") {
-                won(data[0]);
+                won(data[0], [0,1,2]);
 
             }
             else if (data[3] === data[4] && data[4] === data[5] && data[5] !== "") {
-                won(data[3]);
+                won(data[3], [3,4,5]);
             }
             else if (data[6] === data[7] && data[7] === data[8] && data[8] !== "") {
-                won(data[6]);
+                won(data[6], [6,7,8]);
             }
             else if (data[0] === data[3] && data[3] === data[6] && data[6] !== "") {
-                won(data[0]);
+                won(data[0], [0,3,6]);
             }
             else if (data[1] === data[4] && data[4] === data[7] && data[7] !== "") {
-                won(data[1]);
+                won(data[1], [1,4,7]);
             }
             else if (data[2] === data[5] && data[5] === data[8] && data[8] !== "") {
-                won(data[2]);
+                won(data[2], [2,5,8]);
             }
 
             else if (data[0] === data[4] && data[4] === data[8] && data[8] !== "") {
-                won(data[0]);
+                won(data[0], [0,4,8]);
             }
 
             else if (data[2] === data[4] && data[4] === data[6] && data[6] !== "") {
-                won(data[2]);
+                won(data[2], [2,4,6]);
             }
         }
         checkWin();
     }
 
-    const won = (winner) => {
+    const won = (winner, winningBoxes) => {
         setLock(true);
+        winningBoxes.forEach(index => {
+            box_array[index].current.classList.add('winning-box');
+        });
         if(winner==="x")
         {
             titleRef.current.innerHTML=`Congratulations! <img src='${cross_icon}' /> won the game`;
@@ -87,6 +90,7 @@ const TicTacToe = () => {
         titleRef.current.innerHTML="Tic Tac Toe Game";
         box_array.map(((e)=>{
             e.current.innerHTML="";
+            e.current.classList.remove('winning-box');
         }))
     }
 
